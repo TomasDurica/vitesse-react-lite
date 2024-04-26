@@ -1,6 +1,8 @@
 # Vitesse React Lite
 An opininionated and small Vite starter template for React
 
+[Live Demo](https://vitesse-react-lite.netlify.app/)
+
 ## Features
 - [React](https://github.com/facebook/react), [Vite](https://github.com/vitejs/vite), [pnpm](https://pnpm.io/), 
 
@@ -11,7 +13,6 @@ An opininionated and small Vite starter template for React
 ## Try it now!
 
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/TomasDurica/vitesse-react-lite)
-
 
 ### Clone to local
 ```cmd
