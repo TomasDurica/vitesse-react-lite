@@ -1,5 +1,4 @@
-type Theme = 'dark' | 'light'
-const defaultTheme = 'dark'
+type Theme = 'dark' | 'light' | undefined
 
 function useLocalStorage<T>(key: string, initialValue: T) {
   const [storedValue, setStoredValue] = useState<T>(() => {
@@ -17,16 +16,14 @@ function useLocalStorage<T>(key: string, initialValue: T) {
 }
 
 function useMediaQuery(query: string) {
-  let mediaQuery: MediaQueryList | undefined
-  const [matches, setMatches] = useState(false)
+  const mediaQuery = window.matchMedia(query)
+  const [matches, setMatches] = useState(mediaQuery.matches)
 
   const handler = (event: MediaQueryListEvent) => {
     setMatches(event.matches)
   }
 
   useEffect(() => {
-    mediaQuery = window.matchMedia(query)
-
     mediaQuery.addEventListener('change', handler)
 
     return () => {
@@ -37,17 +34,21 @@ function useMediaQuery(query: string) {
   return matches
 }
 
-export const ThemeContext = createContext<{
+const ThemeContext = createContext<{
   theme: Theme
   setTheme: (theme: Theme) => void
-}>({ theme: defaultTheme, setTheme: () => {} })
+}>({ theme: undefined, setTheme: () => {} })
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)')
-  const [theme, setTheme] = useLocalStorage<Theme>(
+  const preferredTheme = prefersDarkMode ? 'dark' : 'light'
+
+  const [themeOverride, setThemeOverride] = useLocalStorage<Theme>(
     'dark-mode',
-    prefersDarkMode ? 'dark' : 'light',
+    undefined,
   )
+
+  const theme = themeOverride ?? preferredTheme
 
   useEffect(() => {
     if (theme === 'dark') {
@@ -60,9 +61,15 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   const providerValue = useMemo(
     () => ({
       theme,
-      setTheme,
+      setTheme: (value: Theme) => {
+        if (value === preferredTheme) {
+          setThemeOverride(undefined)
+        } else {
+          setThemeOverride(value)
+        }
+      },
     }),
-    [theme, setTheme],
+    [preferredTheme, theme],
   )
 
   return (
@@ -73,7 +80,5 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
 }
 
 export function useTheme() {
-  const { theme, setTheme } = useContext(ThemeContext)
-
-  return [theme, setTheme] as const
+  return useContext(ThemeContext)
 }

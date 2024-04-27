@@ -1,7 +1,7 @@
 import { useTheme } from '@/hooks/useTheme'
 
 export default function Index() {
-  const [theme, setTheme] = useTheme()
+  const { theme, setTheme } = useTheme()
 
   const toggleTheme = () => {
     setTheme(theme === 'dark' ? 'light' : 'dark')
