@@ -1,12 +1,12 @@
 export default function NotFound() {
   return (
-    <div className="grid h-screen place-items-center">
-      <div className="flex flex-col items-center">
-        <header className="flex items-center gap-8">
-          <span className="row-span-2 text-40 text-sky-700 dark:text-sky-200">
+    <div className="grid place-items-center px-4 h-dvh">
+      <div className="flex flex-col items-center gap-8 sm:(gap-4)">
+        <header className="flex flex-col items-center sm:(flex-row gap-8)">
+          <span className="row-span-2 text-32 text-sky-700 leading-none sm:(text-40) dark:text-sky-200">
             404
           </span>
-          <span className="w-[5ch] text-8 font-light line-height-10">
+          <span className="py-2 text-6 font-light leading-tight sm:(w-[5ch] text-8)">
             Page Not Found
           </span>
         </header>

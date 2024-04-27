@@ -8,8 +8,8 @@ export default function Index() {
   }
 
   return (
-    <div className="grid h-screen place-items-center">
-      <div className="flex flex-col items-center">
+    <div className="grid place-items-center px-4 h-dvh">
+      <div className="flex flex-col items-center text-center">
         <header className="bold text-12 text-sky-700 dark:text-sky-200">
           Vitesse React Lite
         </header>

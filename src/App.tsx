@@ -4,7 +4,7 @@ import { useRoutes } from 'react-router-dom'
 
 function Loader() {
   return (
-    <div className="grid h-screen place-items-center">
+    <div className="grid place-items-center h-dvh">
       <div className="h-16 flex gap-2">
         <div className="h-full animate-[bounce_.8s_infinite]">
           <div className="size-4 rounded-full bg-sky-700 dark:bg-sky-200"></div>
@@ -22,7 +22,7 @@ function Loader() {
 
 export default function App() {
   return (
-    <div className="text-gray-500 font-sans dark:text-gray-200">
+    <div className="min-w-64 text-gray-500 font-sans dark:text-gray-200">
       <Suspense fallback={<Loader />}>{useRoutes(routes)}</Suspense>
     </div>
   )
