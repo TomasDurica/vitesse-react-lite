@@ -9,7 +9,12 @@ function useLocalStorage<T>(key: string, initialValue: T) {
 
   const setValue = (value: T) => {
     setStoredValue(value)
-    window.localStorage.setItem(key, JSON.stringify(value))
+
+    if (value === undefined) {
+      window.localStorage.removeItem(key)
+    } else {
+      window.localStorage.setItem(key, JSON.stringify(value))
+    }
   }
 
   return [storedValue, setValue] as const
